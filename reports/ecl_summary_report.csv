@@ -1,0 +1,12 @@
+Metric,Value
+Total Loans,122216
+Total Portfolio EAD,"$145,346,110"
+Total ECL Provision (Base),"$23,724,486"
+ECL as % of EAD,16.32%
+Total ECL Adverse,"$30,841,832"
+Total ECL Optimistic,"$18,979,589"
+Mean PD,0.1630
+Mean LGD,0.5828
+Stage 1 Loans,35273
+Stage 2 Loans,76594
+Stage 3 Loans,10349

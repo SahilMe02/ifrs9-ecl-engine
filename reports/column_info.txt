@@ -1,0 +1,153 @@
+ALL 151 COLUMNS WITH DTYPE AND NULL %
+
+  1. id                                       | int64      | 0.0% null
+  2. member_id                                | float64    | 100.0% null
+  3. loan_amnt                                | float64    | 0.0% null
+  4. funded_amnt                              | float64    | 0.0% null
+  5. funded_amnt_inv                          | float64    | 0.0% null
+  6. term                                     | str        | 0.0% null
+  7. int_rate                                 | float64    | 0.0% null
+  8. installment                              | float64    | 0.0% null
+  9. grade                                    | str        | 0.0% null
+ 10. sub_grade                                | str        | 0.0% null
+ 11. emp_title                                | str        | 6.1% null
+ 12. emp_length                               | str        | 6.1% null
+ 13. home_ownership                           | str        | 0.0% null
+ 14. annual_inc                               | float64    | 0.0% null
+ 15. verification_status                      | str        | 0.0% null
+ 16. issue_d                                  | str        | 0.0% null
+ 17. loan_status                              | str        | 0.0% null
+ 18. pymnt_plan                               | str        | 0.0% null
+ 19. url                                      | str        | 0.0% null
+ 20. desc                                     | str        | 100.0% null
+ 21. purpose                                  | str        | 0.0% null
+ 22. title                                    | str        | 0.1% null
+ 23. zip_code                                 | str        | 0.0% null
+ 24. addr_state                               | str        | 0.0% null
+ 25. dti                                      | float64    | 0.0% null
+ 26. delinq_2yrs                              | float64    | 0.0% null
+ 27. earliest_cr_line                         | str        | 0.0% null
+ 28. fico_range_low                           | float64    | 0.0% null
+ 29. fico_range_high                          | float64    | 0.0% null
+ 30. inq_last_6mths                           | float64    | 0.0% null
+ 31. mths_since_last_delinq                   | float64    | 48.6% null
+ 32. mths_since_last_record                   | float64    | 82.4% null
+ 33. open_acc                                 | float64    | 0.0% null
+ 34. pub_rec                                  | float64    | 0.0% null
+ 35. revol_bal                                | float64    | 0.0% null
+ 36. revol_util                               | float64    | 0.0% null
+ 37. total_acc                                | float64    | 0.0% null
+ 38. initial_list_status                      | str        | 0.0% null
+ 39. out_prncp                                | float64    | 0.0% null
+ 40. out_prncp_inv                            | float64    | 0.0% null
+ 41. total_pymnt                              | float64    | 0.0% null
+ 42. total_pymnt_inv                          | float64    | 0.0% null
+ 43. total_rec_prncp                          | float64    | 0.0% null
+ 44. total_rec_int                            | float64    | 0.0% null
+ 45. total_rec_late_fee                       | float64    | 0.0% null
+ 46. recoveries                               | float64    | 0.0% null
+ 47. collection_recovery_fee                  | float64    | 0.0% null
+ 48. last_pymnt_d                             | str        | 0.1% null
+ 49. last_pymnt_amnt                          | float64    | 0.0% null
+ 50. next_pymnt_d                             | str        | 88.0% null
+ 51. last_credit_pull_d                       | str        | 0.0% null
+ 52. last_fico_range_high                     | float64    | 0.0% null
+ 53. last_fico_range_low                      | float64    | 0.0% null
+ 54. collections_12_mths_ex_med               | float64    | 0.0% null
+ 55. mths_since_last_major_derog              | float64    | 70.9% null
+ 56. policy_code                              | float64    | 0.0% null
+ 57. application_type                         | str        | 0.0% null
+ 58. annual_inc_joint                         | float64    | 99.7% null
+ 59. dti_joint                                | float64    | 99.7% null
+ 60. verification_status_joint                | str        | 99.7% null
+ 61. acc_now_delinq                           | float64    | 0.0% null
+ 62. tot_coll_amt                             | float64    | 0.0% null
+ 63. tot_cur_bal                              | float64    | 0.0% null
+ 64. open_acc_6m                              | float64    | 89.3% null
+ 65. open_act_il                              | float64    | 89.3% null
+ 66. open_il_12m                              | float64    | 89.3% null
+ 67. open_il_24m                              | float64    | 89.3% null
+ 68. mths_since_rcnt_il                       | float64    | 89.6% null
+ 69. total_bal_il                             | float64    | 89.3% null
+ 70. il_util                                  | float64    | 90.7% null
+ 71. open_rv_12m                              | float64    | 89.3% null
+ 72. open_rv_24m                              | float64    | 89.3% null
+ 73. max_bal_bc                               | float64    | 89.3% null
+ 74. all_util                                 | float64    | 89.3% null
+ 75. total_rev_hi_lim                         | float64    | 0.0% null
+ 76. inq_fi                                   | float64    | 89.3% null
+ 77. total_cu_tl                              | float64    | 89.3% null
+ 78. inq_last_12m                             | float64    | 89.3% null
+ 79. acc_open_past_24mths                     | float64    | 0.0% null
+ 80. avg_cur_bal                              | float64    | 0.0% null
+ 81. bc_open_to_buy                           | float64    | 0.9% null
+ 82. bc_util                                  | float64    | 1.0% null
+ 83. chargeoff_within_12_mths                 | float64    | 0.0% null
+ 84. delinq_amnt                              | float64    | 0.0% null
+ 85. mo_sin_old_il_acct                       | float64    | 2.9% null
+ 86. mo_sin_old_rev_tl_op                     | float64    | 0.0% null
+ 87. mo_sin_rcnt_rev_tl_op                    | float64    | 0.0% null
+ 88. mo_sin_rcnt_tl                           | float64    | 0.0% null
+ 89. mort_acc                                 | float64    | 0.0% null
+ 90. mths_since_recent_bc                     | float64    | 0.9% null
+ 91. mths_since_recent_bc_dlq                 | float64    | 74.6% null
+ 92. mths_since_recent_inq                    | float64    | 10.9% null
+ 93. mths_since_recent_revol_delinq           | float64    | 64.2% null
+ 94. num_accts_ever_120_pd                    | float64    | 0.0% null
+ 95. num_actv_bc_tl                           | float64    | 0.0% null
+ 96. num_actv_rev_tl                          | float64    | 0.0% null
+ 97. num_bc_sats                              | float64    | 0.0% null
+ 98. num_bc_tl                                | float64    | 0.0% null
+ 99. num_il_tl                                | float64    | 0.0% null
+100. num_op_rev_tl                            | float64    | 0.0% null
+101. num_rev_accts                            | float64    | 0.0% null
+102. num_rev_tl_bal_gt_0                      | float64    | 0.0% null
+103. num_sats                                 | float64    | 0.0% null
+104. num_tl_120dpd_2m                         | float64    | 5.6% null
+105. num_tl_30dpd                             | float64    | 0.0% null
+106. num_tl_90g_dpd_24m                       | float64    | 0.0% null
+107. num_tl_op_past_12m                       | float64    | 0.0% null
+108. pct_tl_nvr_dlq                           | float64    | 0.0% null
+109. percent_bc_gt_75                         | float64    | 1.0% null
+110. pub_rec_bankruptcies                     | float64    | 0.0% null
+111. tax_liens                                | float64    | 0.0% null
+112. tot_hi_cred_lim                          | float64    | 0.0% null
+113. total_bal_ex_mort                        | float64    | 0.0% null
+114. total_bc_limit                           | float64    | 0.0% null
+115. total_il_high_credit_limit               | float64    | 0.0% null
+116. revol_bal_joint                          | float64    | 100.0% null
+117. sec_app_fico_range_low                   | float64    | 100.0% null
+118. sec_app_fico_range_high                  | float64    | 100.0% null
+119. sec_app_earliest_cr_line                 | float64    | 100.0% null
+120. sec_app_inq_last_6mths                   | float64    | 100.0% null
+121. sec_app_mort_acc                         | float64    | 100.0% null
+122. sec_app_open_acc                         | float64    | 100.0% null
+123. sec_app_revol_util                       | float64    | 100.0% null
+124. sec_app_open_act_il                      | float64    | 100.0% null
+125. sec_app_num_rev_accts                    | float64    | 100.0% null
+126. sec_app_chargeoff_within_12_mths         | float64    | 100.0% null
+127. sec_app_collections_12_mths_ex_med       | float64    | 100.0% null
+128. sec_app_mths_since_last_major_derog      | float64    | 100.0% null
+129. hardship_flag                            | str        | 0.0% null
+130. hardship_type                            | str        | 99.3% null
+131. hardship_reason                          | str        | 99.3% null
+132. hardship_status                          | str        | 99.3% null
+133. deferral_term                            | float64    | 99.3% null
+134. hardship_amount                          | float64    | 99.3% null
+135. hardship_start_date                      | str        | 99.3% null
+136. hardship_end_date                        | str        | 99.3% null
+137. payment_plan_start_date                  | str        | 99.3% null
+138. hardship_length                          | float64    | 99.3% null
+139. hardship_dpd                             | float64    | 99.3% null
+140. hardship_loan_status                     | str        | 99.3% null
+141. orig_projected_additional_accrued_interest | float64    | 99.4% null
+142. hardship_payoff_balance_amount           | float64    | 99.3% null
+143. hardship_last_payment_amount             | float64    | 99.3% null
+144. disbursement_method                      | str        | 0.0% null
+145. debt_settlement_flag                     | str        | 0.0% null
+146. debt_settlement_flag_date                | str        | 97.1% null
+147. settlement_status                        | str        | 97.1% null
+148. settlement_date                          | str        | 97.1% null
+149. settlement_amount                        | float64    | 97.1% null
+150. settlement_percentage                    | float64    | 97.1% null
+151. settlement_term                          | float64    | 97.1% null
