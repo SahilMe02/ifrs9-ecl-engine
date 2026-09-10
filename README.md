@@ -91,4 +91,4 @@ None of these affect the current results, but they're the next things I'd clean 
 
 ## Why I built this
 
-Targeting risk analyst roles, I wanted something that went past a Kaggle-style PD model and actually replicated the full IFRS 9 lifecycle a bank goes through — PD, LGD, EAD, staging, macro overlays, and the backtesting a regulator would actually check. It's also the reason the repo includes things like calibration diagnostics and PSI stability tests, not just a model with a good AUC.
+Targeting risk analyst roles, I wanted something that went past a Kaggle-style PD model and actually replicated the full IFRS 9 lifecycle a bank goes through — PD, LGD, EAD, staging, macro overlays, and the backtesting a regulator would actually check. It's also the reason the repo includes things like calibration diagnostics and PSI stability tests, not just a model with a good AUC
