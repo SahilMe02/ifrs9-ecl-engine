@@ -1,6 +1,9 @@
 # IFRS 9 Expected Credit Loss (ECL) Engine
 
-An end-to-end credit risk pipeline that estimates Expected Credit Loss under IFRS 9, built on LendingClub's 2007–2018 loan data. This started as an M.Tech project but ended up being a full attempt at replicating how a bank's risk team would actually model, calibrate, and stress-test provisioning numbers — from raw loan tapes all the way to a dashboard a risk analyst could use day to day.
+[![Live Demo](https://img.shields.io/badge/Live%20App-Streamlit-red)](https://web-production-8d67d.up.railway.app)
+[![Python Version](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
+
+An end-to-end credit risk pipeline that estimates Expected Credit Loss under IFRS 9, built on LendingClub's 2007–2018 loan data. This started as an M.Tech project at NMIMS but ended up being a full attempt at replicating how a bank's risk team would actually model, calibrate, and stress-test provisioning numbers — from raw loan tapes all the way to a dashboard a risk analyst could use day to day.
 
 ## What it does
 
@@ -45,9 +48,10 @@ Backtesting (NB06) — all four regulatory tests passed:
 | `05_ecl_calculation` | Combines PD × LGD × EAD, applies IFRS 9 staging and macro overlays |
 | `06_backtesting` | Kupiec, Traffic Light, calibration, and PSI stability tests |
 
-## Dashboard
+## Live Dashboard
 
-A six-page Streamlit app for exploring the model outputs interactively:
+The engine outputs are deployed as a live six-page Streamlit app hosted on Railway: **[View the live dashboard here](https://web-production-8d67d.up.railway.app)**
+
 - **Overview** — portfolio-level ECL summary
 - **Loan Sandbox** — plug in a hypothetical loan and see its ECL and Basel Traffic Light status in real time
 - **Portfolio** — segment-level breakdowns
@@ -62,33 +66,10 @@ Built with a dark fintech theme (Sora + DM Mono), custom CSS, and Plotly for cha
 Python, scikit-learn (Gradient Boosting, WoE/IV pipelines), Platt Scaling for calibration, Streamlit + Plotly for the dashboard, joblib for model persistence, pandas for the data pipeline.
 
 ## Repo structure
+```text
 ifrs9-ecl-engine/
-├── notebooks/       # the six-notebook pipeline above
-├── src/             # saved models (pd_model.pkl, lgd_model.pkl, scaler.pkl, etc.)
+├── notebooks/        # the six-notebook pipeline above
+├── src/              # saved models (pd_model.pkl, lgd_model.pkl, scaler.pkl, etc.)
 ├── dashboard/        # Streamlit app (app.py + pages/)
 ├── reports/          # generated charts, summary CSVs
-└── data/             # NOT tracked in git — see below
-
-## Reproducing this
-
-The raw dataset and all derived CSVs are excluded from this repo (they're large and fully regenerable). To reproduce:
-
-1. Download the LendingClub 2007–2018 accepted loans dataset
-2. Place it at `data/accepted_2007_to_2018q4.csv`
-3. Run the notebooks in order, 01 through 06 — each one writes its outputs to `data/` for the next notebook to pick up
-4. Launch the dashboard with `streamlit run dashboard/app.py`
-
-## Known issues / next steps
-
-A few things I've flagged in code review that are still pending:
-
-- **NB01**: `credit_history_years` should be pinned to a fixed reference date (2018-12-31) rather than computed relative to run-time, for reproducibility
-- **NB02**: an unused `FrozenEstimator` import needs removing
-- **NB04**: the amortisation calculation currently loops row-by-row — should be vectorised for performance on larger portfolios
-- **NB06**: `pd_bucket` assignment should use `pd.qcut` for cleaner quantile-based bucketing
-
-None of these affect the current results, but they're the next things I'd clean up before treating this as production-ready.
-
-## Why I built this
-
-Targeting risk analyst roles, I wanted something that went past a Kaggle-style PD model and actually replicated the full IFRS 9 lifecycle a bank goes through — PD, LGD, EAD, staging, macro overlays, and the backtesting a regulator would actually check. It's also the reason the repo includes things like calibration diagnostics and PSI stability tests, not just a model with a good AUC
+└── data/             # processed prediction CSVs for the live app
