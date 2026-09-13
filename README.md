@@ -12,8 +12,8 @@ Given a portfolio of loans, the engine predicts three components of credit loss 
 **ECL = PD × LGD × EAD**
 
 - **PD (Probability of Default)** - a calibrated Gradient Boosting model, trained with Weight-of-Evidence encoded features selected using Information Value
-- **LGD (Loss Given Default)** — a regression model trained only on the ~26.7K loans that actually defaulted, then applied across the full portfolio
-- **EAD (Exposure at Default)** — a hybrid approach: outstanding principal for active loans, an amortisation formula for closed ones, and zero for loans paid in full
+- **LGD (Loss Given Default)** - a regression model trained only on the ~26.7K loans that actually defaulted, then applied across the full portfolio
+- **EAD (Exposure at Default)** - a hybrid approach: outstanding principal for active loans, an amortisation formula for closed ones, and zero for loans paid in full
 
 The result gets staged under IFRS 9 (Stage 1/2/3 based on PD thresholds), stress-tested under macro scenarios, and backtested against four regulatory benchmarks.
 
@@ -31,7 +31,7 @@ The result gets staged under IFRS 9 (Stage 1/2/3 based on PD thresholds), stress
 | Adverse scenario ECL | $30.8M (+$7.1M uplift) |
 | Optimistic scenario ECL | $19.0M |
 
-Backtesting (NB06) — all four regulatory tests passed:
+Backtesting (NB06) - all four regulatory tests passed:
 - Kupiec test: p = 0.7935
 - Basel Traffic Light: GREEN (0.32% deviation)
 - Calibration error: 0.0080
@@ -52,12 +52,12 @@ Backtesting (NB06) — all four regulatory tests passed:
 
 The engine outputs are deployed as a live six-page Streamlit app hosted on Railway: **[View the live dashboard here](https://web-production-8d67d.up.railway.app)**
 
-- **Overview** — portfolio-level ECL summary
-- **Loan Sandbox** — plug in a hypothetical loan and see its ECL and Basel Traffic Light status in real time
-- **Portfolio** — segment-level breakdowns
-- **Model Performance** — PD/LGD diagnostics, calibration curves
-- **Backtesting** — the four regulatory tests, visualised
-- **Export Report** — CSV export for offline review
+- **Overview** - portfolio-level ECL summary
+- **Loan Sandbox** - plug in a hypothetical loan and see its ECL and Basel Traffic Light status in real time
+- **Portfolio** - segment-level breakdowns
+- **Model Performance** - PD/LGD diagnostics, calibration curves
+- **Backtesting** - the four regulatory tests, visualised
+- **Export Report** - CSV export for offline review
 
 Built with a dark fintech theme (Sora + DM Mono), custom CSS, and Plotly for charts.
 
