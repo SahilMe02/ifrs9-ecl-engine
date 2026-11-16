@@ -1,6 +1,6 @@
 # IFRS 9 Expected Credit Loss (ECL) Engine
 
-[![Live Demo](https://img.shields.io/badge/Live%20App-Railway-purple)](https://web-production-8d67d.up.railway.app)
+[![Live Demo](https://img.shields.io/badge/Live%20App-Streamlit-FF4B4B)](https://ifrs9-ecl-engine-sahilmehta.streamlit.app)
 [![Python Version](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
 
 An end-to-end credit risk pipeline that estimates Expected Credit Loss under IFRS 9, built on LendingClub's 2007–2018 loan data. This started as an M.Tech project at NMIMS but ended up being a full attempt at replicating how a bank's risk team would actually model, calibrate, and stress-test provisioning numbers from raw loan tapes all the way to a dashboard a risk analyst could use day to day.
@@ -50,7 +50,7 @@ Backtesting (NB06) - all four regulatory tests passed:
 
 ## Live Dashboard
 
-The engine outputs are deployed as a live six-page Streamlit app hosted on Railway: **[View the live dashboard here](https://web-production-8d67d.up.railway.app)**
+The engine outputs are deployed as a live six-page Streamlit app hosted on Streamlit Community Cloud: **[View the live dashboard here](https://ifrs9-ecl-engine-sahilmehta.streamlit.app)** _(if it's been idle, give it ~30 seconds to wake up)_
 
 - **Overview** - portfolio-level ECL summary
 - **Loan Sandbox** - plug in a hypothetical loan and see its ECL, IFRS 9 stage and risk flag in real time
