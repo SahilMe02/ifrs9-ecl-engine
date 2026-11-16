@@ -37,7 +37,7 @@ def show():
             </div>
             <div>
                 <div class='ecl-label'>Total EAD</div>
-                <div class='ecl-value-blue'>${total_ead/1e6:.1f}M</div>
+                <div class='ecl-value-blue'>${total_ead/1e9:.2f}B</div>
             </div>
             <div>
                 <div class='ecl-label'>Base ECL Provision</div>

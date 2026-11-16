@@ -240,7 +240,7 @@ const eadR = {
   36:{A:.577,B:.593,C:.636,D:.681,E:.710,F:.721,G:.749},
   60:{A:.719,B:.716,C:.750,D:.771,E:.790,F:.818,G:.860}
 };
-const SICR_MULTIPLIER = 2.0;   // same rule as NB05: PD >= 2x grade average -> Stage 2
+const SICR_MULTIPLIER = 2.0;   // same rule as NB05 (2x grade PD); gPD values are simplified benchmarks
 
 function fmt(n){return '$'+Math.round(n).toLocaleString('en-US')}
 function pct(n,d=1){return(n*100).toFixed(d)+'%'}
@@ -288,7 +288,7 @@ function compute(){
   // EAD at default: loan amount x segment ratio (same table as the portfolio)
   var ead = loan * ((eadR[term]||eadR[36])[grade] || .65);
 
-  // Staging: Stage 2 if lifetime PD >= 2x the grade average (SICR proxy).
+  // Staging: Stage 2 if lifetime PD >= 2x the grade benchmark PD (SICR proxy).
   // Stage 3 needs observed delinquency, which a new application cannot have.
   var pd12 = 1 - Math.pow(1 - pd, 12/term);   // constant-hazard 12-month PD
   var stage,stageColor,pdUsed;
@@ -326,7 +326,7 @@ function compute(){
     tlBox.className='tl amber';
     tlDot.style.background='var(--amber)';tlLbl.style.color='var(--amber)';
     tlLbl.textContent='SICR flagged - lifetime ECL';
-    tlDesc.textContent='PD is at least 2x the grade '+grade+' average ('+pct(SICR_MULTIPLIER*(gPD[grade]||.09))+')';
+    tlDesc.textContent='PD is at least 2x the grade '+grade+' benchmark ('+pct(SICR_MULTIPLIER*(gPD[grade]||.09))+')';
   } else if(rel<1){
     tlBox.className='tl green';
     tlDot.style.background='var(--green)';tlLbl.style.color='var(--green)';

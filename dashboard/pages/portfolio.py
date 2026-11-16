@@ -16,7 +16,7 @@ def show():
     st.markdown("""
     <div class='page-header'>Portfolio Analysis</div>
     <div class='page-subheader'>
-        Loan distribution, risk concentration, and vintage analysis
+        Loan distribution, and risk concentration
     </div>
     """, unsafe_allow_html=True)
 
@@ -30,7 +30,7 @@ def show():
     with c1:
         st.metric("Total Loans", f"{total_loans:,}")
     with c2:
-        st.metric("Total EAD", f"${total_ead/1e6:.1f}M")
+        st.metric("Total EAD", f"${total_ead/1e9:.2f}B")
     with c3:
         st.metric("Base ECL", f"${total_ecl/1e6:.1f}M")
     with c4:
@@ -83,13 +83,17 @@ def show():
         st.plotly_chart(fig2, use_container_width=True)
 
     with col3:
-        stage_counts = df['ifrs9_stage'].value_counts().sort_index()
-        stage_colors_map = {'Stage 1': '#22c55e', 'Stage 2': '#f59e0b', 'Stage 3': '#ef4444'}
-        s_colors = [stage_colors_map.get(s, '#64748b') for s in stage_counts.index]
+        stage_order  = ['Stage 1', 'Stage 2', 'Stage 3']
+        stage_counts = df['ifrs9_stage'].value_counts().reindex(stage_order, fill_value=0)
+        stage_pct    = stage_counts / stage_counts.sum() * 100
+        s_colors     = ['#22c55e', '#f59e0b', '#ef4444']
+        # Percentages in the legend; only slices >= 5% get an on-chart label
         fig3 = go.Figure(go.Pie(
-            labels=list(stage_counts.index), values=stage_counts.values, hole=0.6,
+            labels=[f"{s}  {p:.1f}%" for s, p in zip(stage_order, stage_pct)],
+            values=stage_counts.values, hole=0.6, sort=False, direction='clockwise',
             marker=dict(colors=s_colors, line=dict(color='#0a0e1a', width=2)),
-            textinfo='percent', textfont=dict(size=12, color='white', family='DM Mono')
+            text=[f"{p:.1f}%" if p >= 5 else "" for p in stage_pct], textinfo='text',
+            textfont=dict(size=12, color='white', family='DM Mono')
         ))
         fig3.update_layout(
             title=dict(text='IFRS 9 Stages', font=dict(size=13, color='#94a3b8'), x=0),
@@ -209,13 +213,14 @@ def show():
                 marker=dict(color=list(purpose_counts.values),
                     colorscale=[[0, '#1d4ed8'], [1, '#7c3aed']], line=dict(color='#0a0e1a', width=0.5)),
                 text=[f'{v:,}' for v in purpose_counts.values],
-                textposition='outside', textfont=dict(size=10, color='#64748b')
+                textposition='outside', cliponaxis=False, textfont=dict(size=10, color='#64748b')
             ))
             fig8.update_layout(
                 title=dict(text='Loan Count by Purpose (Top 10)', font=dict(size=13, color='#94a3b8'), x=0),
                 paper_bgcolor='#111827', plot_bgcolor='#111827',
                 font=dict(color='#94a3b8', family='Sora', size=11),
-                xaxis=dict(color='#475569', gridcolor='#1e2d4a'),
+                xaxis=dict(color='#475569', gridcolor='#1e2d4a',
+                           range=[0, purpose_counts.max() * 1.2]),
                 yaxis=dict(color='#475569'),
                 margin=dict(t=40, b=40, l=130, r=60), height=320, showlegend=False
             )
@@ -224,20 +229,21 @@ def show():
         with col2:
             purpose_pd = df.groupby('purpose').agg(
                 mean_pd=('pd_probability', 'mean')
-            ).sort_values('mean_pd', ascending=True).head(10)
+            ).nlargest(10, 'mean_pd').sort_values('mean_pd')   # 10 riskiest purposes
             fig9 = go.Figure(go.Bar(
                 y=list(purpose_pd.index), x=list(purpose_pd['mean_pd'] * 100), orientation='h',
                 marker=dict(color=list(purpose_pd['mean_pd']),
                     colorscale=[[0, '#22c55e'], [0.5, '#f59e0b'], [1, '#ef4444']],
                     line=dict(color='#0a0e1a', width=0.5)),
                 text=[f'{v*100:.1f}%' for v in purpose_pd['mean_pd']],
-                textposition='outside', textfont=dict(size=10, color='#64748b')
+                textposition='outside', cliponaxis=False, textfont=dict(size=10, color='#64748b')
             ))
             fig9.update_layout(
-                title=dict(text='Mean PD by Purpose (%)', font=dict(size=13, color='#94a3b8'), x=0),
+                title=dict(text='Mean PD by Purpose (Top 10 by risk)', font=dict(size=13, color='#94a3b8'), x=0),
                 paper_bgcolor='#111827', plot_bgcolor='#111827',
                 font=dict(color='#94a3b8', family='Sora', size=11),
-                xaxis=dict(title='Mean PD (%)', color='#475569', gridcolor='#1e2d4a'),
+                xaxis=dict(title='Mean PD (%)', color='#475569', gridcolor='#1e2d4a',
+                           range=[0, purpose_pd['mean_pd'].max() * 100 * 1.2]),
                 yaxis=dict(color='#475569'),
                 margin=dict(t=40, b=40, l=130, r=60), height=320, showlegend=False
             )

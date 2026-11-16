@@ -241,7 +241,7 @@ def show():
         (bt1, "Kupiec Test",         "p-value: 0.7935",  "PASS",   "#22c55e"),
         (bt2, "Traffic Light",       "deviation: 0.32%", "GREEN",  "#22c55e"),
         (bt3, "Calibration",         "error: 0.0080",    "PASS",   "#22c55e"),
-        (bt4, "OOT PSI (2007–2018)", "PSI: 0.0466",      "STABLE", "#3b82f6"),
+        (bt4, "OOT PSI (2007–16 vs 2017–18)", "PSI: 0.0466",      "STABLE", "#3b82f6"),
     ]:
         col.markdown(f"""
         <div class='ecl-card' style='text-align:center'>
