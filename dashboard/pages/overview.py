@@ -104,6 +104,7 @@ def show():
             values=stage_counts.values,
             sort=False, direction='clockwise',
             hole=0.65,
+            domain=dict(x=[0, 0.7], y=[0, 1]),   # donut lives in the left 70%
             marker=dict(colors=colors, line=dict(color='#0a0e1a', width=2)),
             text=[f"{p:.1f}%" if p >= 5 else "" for p in stage_pct],
             textinfo='text',
@@ -116,12 +117,12 @@ def show():
             font=dict(color='#94a3b8', family='Sora'),
             legend=dict(font=dict(size=11, color='#94a3b8'),
                         bgcolor='#111827', bordercolor='#1e2d4a',
-                        x=0.75, y=0.5),
+                        x=0.74, y=0.5, yanchor='middle'),
             margin=dict(t=10, b=10, l=10, r=10),
             height=280,
             annotations=[dict(
                 text=f"<b>{total_loans:,}</b><br>loans",
-                x=0.37, y=0.5,
+                x=0.35, y=0.5, xanchor='center', yanchor='middle',   # centre of the domain
                 font=dict(size=14, color='#e2e8f0', family='DM Mono'),
                 showarrow=False
             )]
