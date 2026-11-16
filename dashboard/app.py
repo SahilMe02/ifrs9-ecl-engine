@@ -24,6 +24,10 @@ html, body, [class*="css"] {
 /* keep the sidebar open/close arrow usable */
 [data-testid="stSidebarCollapsedControl"],
 [data-testid="stExpandSidebarButton"] {visibility: visible !important;}
+/* let Streamlit icons use their own icon font */
+[data-testid="stIconMaterial"], .material-symbols-rounded {
+    font-family: "Material Symbols Rounded" !important;
+}
 .block-container {
     padding-top: 1.5rem;
     padding-bottom: 2rem;
@@ -162,6 +166,16 @@ hr {
     margin-bottom: 12px; margin-top: 8px;
 }
 .glow-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+
+/* icons: restore Material Symbols font + ligatures */
+html body [data-testid="stIconMaterial"],
+html body [data-testid="stSidebar"] [data-testid="stIconMaterial"],
+html body span.material-symbols-rounded {
+    font-family: "Material Symbols Rounded" !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+    font-feature-settings: "liga" !important;
+}
 </style>
 """, unsafe_allow_html=True)
 

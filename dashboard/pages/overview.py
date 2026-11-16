@@ -33,10 +33,10 @@ def show():
         st.metric("Portfolio EAD", f"${total_ead/1e6:.1f}M")
     with col3:
         st.metric("Base ECL Provision", f"${total_ecl/1e6:.1f}M",
-                  delta=f"{ecl_coverage:.2f}% of EAD")
+                  delta=f"{ecl_coverage:.2f}% of EAD", delta_color="off", delta_arrow="off")
     with col4:
-        st.metric("Mean PD / LGD",
-                  f"{mean_pd*100:.1f}% / {mean_lgd*100:.1f}%")
+        st.metric("Mean PD", f"{mean_pd*100:.1f}%",
+                  delta=f"LGD {mean_lgd*100:.1f}%", delta_color="off", delta_arrow="off")
 
     st.markdown("<hr>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Macro scenario overlay (IFRS 9 forward-looking)</div>",
@@ -57,7 +57,7 @@ def show():
     with sc2:
         st.markdown(f"""
         <div class='ecl-card'>
-            <div class='ecl-label'>Base case (no adjustment)</div>
+            <div class='ecl-label'>Base case (PD × 1.00)</div>
             <div class='ecl-value-blue'>${ecl_base/1e6:.1f}M</div>
             <div style='font-size:11px;color:#475569;margin-top:4px'>{ecl_base/total_ead*100:.2f}% of EAD</div>
         </div>""", unsafe_allow_html=True)
