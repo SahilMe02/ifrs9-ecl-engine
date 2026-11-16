@@ -221,7 +221,7 @@ with st.sidebar:
         <div>AUC: 0.7101 · Gini: 0.4202</div>
         <div>LGD model: Gradient Boosting</div>
         <div>R²: 0.1914 · RMSE: 0.2007</div>
-        <div>EAD: Hybrid amortisation</div>
+        <div>EAD: EAD-at-default model</div>
         <div>Calibration: Platt Scaling</div>
         <div>Backtesting: 4/4 PASS</div>
     </div>

@@ -142,7 +142,7 @@ def show():
         ['LGD model',                  'Gradient Boosting'],
         ['LGD R²',                     '0.1914'],
         ['LGD RMSE',                   '0.2007'],
-        ['EAD method',                 'Hybrid amortisation'],
+        ['EAD method',                 'EAD-at-default (term x grade)'],
         ['Calibration',                'Platt Scaling'],
         ['Calibration gap',            '0.07%'],
         ['Kupiec test',                'PASS (p=0.7935)'],

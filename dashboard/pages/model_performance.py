@@ -72,7 +72,7 @@ def show():
             </span>
             <span style='background:#0f1f3d;color:#93c5fd;font-size:11px;
                 padding:3px 10px;border-radius:20px;font-weight:500'>
-                Model: Gradient Boosting · C=0.01
+                Model: Gradient Boosting · Platt-calibrated
             </span>
         </div>
         """, unsafe_allow_html=True)

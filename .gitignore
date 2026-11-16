@@ -20,3 +20,6 @@ __pycache__/
 .env
 dashboard/data
 *.bak
+nb02_features.txt
+*.bak2
+old_refs.txt
