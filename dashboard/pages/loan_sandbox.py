@@ -303,7 +303,7 @@ function compute(){
 
   var eclColor = 'var(--green)';
   if(eclPct>.15)     eclColor='var(--red)';
-  else if(eclPct>.08) eclColor='var(--amber)';
+  else if(eclPct>.08 || pdUsed===pd) eclColor='var(--amber)';   // Stage 2 is never shown green
 
   document.getElementById('eclNum').textContent   = fmt(ecl);
   document.getElementById('eclNum').style.color   = eclColor;

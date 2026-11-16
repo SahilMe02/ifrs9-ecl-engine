@@ -16,7 +16,7 @@ def show():
     st.markdown("""
     <div class='page-header'>Portfolio Analysis</div>
     <div class='page-subheader'>
-        Loan distribution, and risk concentration
+        Loan distribution and risk concentration
     </div>
     """, unsafe_allow_html=True)
 
