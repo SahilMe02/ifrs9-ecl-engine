@@ -8,7 +8,9 @@ def show():
     st.markdown("""
     <div class='page-header'>Loan ECL Sandbox</div>
     <div class='page-subheader'>
-        Input loan parameters and see Expected Credit Loss recalculate instantly
+        Input loan parameters and see Expected Credit Loss recalculate instantly ·
+        simplified grade-level calculator using the portfolio's staging, 12-month / lifetime PD
+        and EAD-at-default rules
     </div>
     """, unsafe_allow_html=True)
 
@@ -199,8 +201,12 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2)}
 
     <div class="metrics">
       <div class="met-row">
-        <span class="met-lbl">Probability of default</span>
+        <span class="met-lbl">Lifetime PD</span>
         <span class="met-val" id="pdVal">—</span>
+      </div>
+      <div class="met-row">
+        <span class="met-lbl">12-month PD</span>
+        <span class="met-val" id="pd12Val">—</span>
       </div>
       <div class="met-row">
         <span class="met-lbl">Loss given default</span>
@@ -229,6 +235,12 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2)}
 <script>
 const gPD  = {A:.04,B:.09,C:.16,D:.24,E:.34,F:.45,G:.58};
 const gLGD = {A:.45,B:.50,C:.56,D:.62,E:.68,F:.73,G:.78};
+// EAD-at-default ratios by term x grade, estimated on defaulted loans in NB04
+const eadR = {
+  36:{A:.577,B:.593,C:.636,D:.681,E:.710,F:.721,G:.749},
+  60:{A:.719,B:.716,C:.750,D:.771,E:.790,F:.818,G:.860}
+};
+const SICR_MULTIPLIER = 2.0;   // same rule as NB05: PD >= 2x grade average -> Stage 2
 
 function fmt(n){return '$'+Math.round(n).toLocaleString('en-US')}
 function pct(n,d=1){return(n*100).toFixed(d)+'%'}
@@ -273,23 +285,21 @@ function compute(){
   if(fico>760) lgd-=.05; else if(fico<640) lgd+=.04;
   lgd = Math.min(Math.max(lgd,.2),.95);
 
-  var r = rate/100/12;
-  var elapsed = Math.round(term*.4);
-  var ead;
-  if(r>0){
-    var num = Math.pow(1+r,term)-Math.pow(1+r,elapsed);
-    var den = Math.pow(1+r,term)-1;
-    ead = den>0 ? loan*Math.max(num/den,0) : loan*.6;
-  } else { ead=loan*.6; }
-  ead = Math.max(ead,loan*.05);
+  // EAD at default: loan amount x segment ratio (same table as the portfolio)
+  var ead = loan * ((eadR[term]||eadR[36])[grade] || .65);
 
-  var ecl     = pd*lgd*ead;
+  // Staging: Stage 2 if lifetime PD >= 2x the grade average (SICR proxy).
+  // Stage 3 needs observed delinquency, which a new application cannot have.
+  var pd12 = 1 - Math.pow(1 - pd, 12/term);   // constant-hazard 12-month PD
+  var stage,stageColor,pdUsed;
+  if(pd >= SICR_MULTIPLIER*(gPD[grade]||.09)){
+    stage='Stage 2 · lifetime'; stageColor='var(--amber)'; pdUsed=pd;
+  } else {
+    stage='Stage 1 · 12m'; stageColor='var(--green)'; pdUsed=pd12;
+  }
+
+  var ecl     = pdUsed*lgd*ead;
   var eclPct  = ecl/loan;
-
-  var stage,stageColor;
-  if(pd<.1)      { stage='Stage 1'; stageColor='var(--green)'; }
-  else if(pd<.3) { stage='Stage 2'; stageColor='var(--amber)'; }
-  else           { stage='Stage 3'; stageColor='var(--red)';   }
 
   var eclColor = 'var(--green)';
   if(eclPct>.15)     eclColor='var(--red)';
@@ -301,6 +311,7 @@ function compute(){
   var pdEl = document.getElementById('pdVal');
   pdEl.textContent = pct(pd);
   pdEl.style.color = pd>.3?'var(--red)':pd>.1?'var(--amber)':'var(--green)';
+  document.getElementById('pd12Val').textContent  = pct(pd12);
   document.getElementById('lgdVal').textContent   = pct(lgd);
   document.getElementById('eadVal').textContent   = fmt(ead);
   var stEl = document.getElementById('stageVal');

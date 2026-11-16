@@ -4,6 +4,10 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 
+def money(x):
+    """$1.18B above a billion, $73.4M below."""
+    return f"${x/1e9:.2f}B" if abs(x) >= 1e9 else f"${x/1e6:.1f}M"
+
 @st.cache_data
 def load_data():
     ecl_df = pd.read_csv('data/ecl_final_results.csv')
@@ -30,7 +34,7 @@ def show():
     with col1:
         st.metric("Total Loans", f"{total_loans:,}")
     with col2:
-        st.metric("Portfolio EAD", f"${total_ead/1e6:.1f}M")
+        st.metric("Portfolio EAD", money(total_ead))
     with col3:
         st.metric("Base ECL Provision", f"${total_ecl/1e6:.1f}M",
                   delta=f"{ecl_coverage:.2f}% of EAD", delta_color="off", delta_arrow="off")
@@ -83,20 +87,26 @@ def show():
         st.markdown("<div class='section-title'>IFRS 9 stage distribution</div>",
                     unsafe_allow_html=True)
 
-        stage_counts = df['ifrs9_stage'].value_counts()
+        stage_order  = ['Stage 1', 'Stage 2', 'Stage 3']
+        stage_counts = df['ifrs9_stage'].value_counts().reindex(stage_order, fill_value=0)
+        stage_pct    = stage_counts / stage_counts.sum() * 100
         stage_colors_map = {
             'Stage 1': '#22c55e',
             'Stage 2': '#f59e0b',
             'Stage 3': '#ef4444'
         }
-        colors = [stage_colors_map.get(s, '#64748b') for s in stage_counts.index]
+        colors = [stage_colors_map[s] for s in stage_order]
 
+        # Percentages live in the legend; only slices >= 5% get an on-chart label,
+        # so the thin Stage 2/3 slices don't overlap
         fig_pie = go.Figure(go.Pie(
-            labels=list(stage_counts.index),
+            labels=[f"{s}  {p:.1f}%" for s, p in zip(stage_order, stage_pct)],
             values=stage_counts.values,
+            sort=False, direction='clockwise',
             hole=0.65,
             marker=dict(colors=colors, line=dict(color='#0a0e1a', width=2)),
-            textinfo='percent',
+            text=[f"{p:.1f}%" if p >= 5 else "" for p in stage_pct],
+            textinfo='text',
             textfont=dict(size=12, color='white', family='DM Mono'),
             showlegend=True
         ))
@@ -180,13 +190,15 @@ def show():
             ),
             text=[f'${v:,.0f}' for v in purpose_ecl.values],
             textposition='outside',
+            cliponaxis=False,
             textfont=dict(size=10, color='#64748b', family='DM Mono')
         ))
         fig_h.update_layout(
             paper_bgcolor='#111827', plot_bgcolor='#111827',
             font=dict(color='#94a3b8', family='Sora'),
             xaxis=dict(color='#475569', gridcolor='#1e2d4a',
-                       tickprefix='$', tickformat=','),
+                       tickprefix='$', tickformat=',',
+                       range=[0, purpose_ecl.max() * 1.2]),   # headroom for labels
             yaxis=dict(color='#475569', gridcolor='#1e2d4a'),
             margin=dict(t=10, b=40, l=130, r=80),
             height=350, showlegend=False
