@@ -25,7 +25,6 @@ def show():
     total_ecl     = df['ecl_base'].sum()
     mean_pd       = df['pd_probability'].mean()
     mean_lgd      = df['lgd_predicted'].mean()
-    mean_int_rate = df['int_rate'].mean() if 'int_rate' in df.columns else 0
 
     c1, c2, c3, c4, c5 = st.columns(5)
     with c1:
@@ -37,7 +36,7 @@ def show():
     with c4:
         st.metric("Mean PD", f"{mean_pd*100:.2f}%")
     with c5:
-        st.metric("Mean Int Rate", f"{mean_int_rate:.2f}%" if mean_int_rate else "N/A")
+        st.metric("Mean LGD", f"{mean_lgd*100:.2f}%")
 
     st.markdown("<hr>", unsafe_allow_html=True)
     st.markdown("<div class='section-title'>Loan composition</div>", unsafe_allow_html=True)

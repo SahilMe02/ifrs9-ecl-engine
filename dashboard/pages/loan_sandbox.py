@@ -184,9 +184,9 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2)}
     </div>
 
     <div class="model-strip">
-      <div class="ms-item"><div class="ms-val">0.7115</div><div class="ms-lbl">AUC-ROC</div></div>
-      <div class="ms-item"><div class="ms-val">0.4230</div><div class="ms-lbl">Gini</div></div>
-      <div class="ms-item"><div class="ms-val">0.3046</div><div class="ms-lbl">KS stat</div></div>
+      <div class="ms-item"><div class="ms-val">0.7101</div><div class="ms-lbl">AUC-ROC</div></div>
+      <div class="ms-item"><div class="ms-val">0.4202</div><div class="ms-lbl">Gini</div></div>
+      <div class="ms-item"><div class="ms-val">0.3072</div><div class="ms-lbl">KS stat</div></div>
     </div>
   </div>
 
@@ -306,23 +306,23 @@ function compute(){
   var stEl = document.getElementById('stageVal');
   stEl.textContent = stage; stEl.style.color = stageColor;
 
-  var dev = Math.abs(pd-.2185)/.2185*100;
+  var rel = pd/.2185;
   var tlBox  = document.getElementById('tlBox');
   var tlDot  = document.getElementById('tlDot');
   var tlLbl  = document.getElementById('tlLbl');
   var tlDesc = document.getElementById('tlDesc');
-  if(dev<20){
+  if(rel<1){
     tlBox.className='tl green';
     tlDot.style.background='var(--green)';tlLbl.style.color='var(--green)';
-    tlLbl.textContent='Green zone';tlDesc.textContent='Basel II — model performing well';
-  } else if(dev<40){
+    tlLbl.textContent='Below-average risk';tlDesc.textContent='PD is below the portfolio average (21.9%)';
+  } else if(rel<1.5){
     tlBox.className='tl amber';
     tlDot.style.background='var(--amber)';tlLbl.style.color='var(--amber)';
-    tlLbl.textContent='Amber zone';tlDesc.textContent='Basel II — monitor closely';
+    tlLbl.textContent='Above-average risk';tlDesc.textContent='PD is above the portfolio average (21.9%) - monitor';
   } else {
     tlBox.className='tl red';
     tlDot.style.background='var(--red)';tlLbl.style.color='var(--red)';
-    tlLbl.textContent='Red zone';tlDesc.textContent='Basel II — recalibration required';
+    tlLbl.textContent='High risk';tlDesc.textContent='PD is well above the portfolio average - manual review';
   }
 }
 compute();

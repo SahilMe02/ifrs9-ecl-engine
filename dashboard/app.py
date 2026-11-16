@@ -21,6 +21,9 @@ html, body, [class*="css"] {
 }
 
 #MainMenu, footer, header {visibility: hidden;}
+/* keep the sidebar open/close arrow usable */
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="stExpandSidebarButton"] {visibility: visible !important;}
 .block-container {
     padding-top: 1.5rem;
     padding-bottom: 2rem;
@@ -176,7 +179,7 @@ with st.sidebar:
             ECL Risk<br>Platform
         </div>
         <div style='font-size: 11px; color: #475569; margin-top: 6px;'>
-            Morgan Stanley CV Project
+            Expected Credit Loss Modelling
         </div>
     </div>
     <hr style='border-color: #1e2d4a; margin: 0 0 1rem 0;'>
@@ -201,7 +204,7 @@ with st.sidebar:
         <div>Dataset: LendingClub 2007–2018</div>
         <div>Loans: 122,216</div>
         <div>PD model: Gradient Boosting</div>
-        <div>AUC: 0.7115 · Gini: 0.4230</div>
+        <div>AUC: 0.7101 · Gini: 0.4202</div>
         <div>LGD model: Gradient Boosting</div>
         <div>R²: 0.1914 · RMSE: 0.2007</div>
         <div>EAD: Hybrid amortisation</div>

@@ -18,9 +18,9 @@ The result gets staged under IFRS 9 (Stage 1/2/3 based on PD thresholds), stress
 
 | Metric | Value |
 |---|---|
-| PD model AUC | 0.7115 |
-| Gini coefficient | 0.4230 |
-| KS statistic | 0.3046 |
+| PD model AUC | 0.7101 |
+| Gini coefficient | 0.4202 |
+| KS statistic | 0.3072 |
 | Calibration gap (post Platt Scaling) | 23.80% → 0.07% |
 | LGD model RMSE / R² | 0.2007 / 0.1914 |
 | Portfolio EAD | $145.3M |
@@ -49,7 +49,7 @@ Backtesting (NB06) — all four regulatory tests passed:
 
 A six-page Streamlit app for exploring the model outputs interactively:
 - **Overview** — portfolio-level ECL summary
-- **Loan Sandbox** — plug in a hypothetical loan and see its ECL and Basel Traffic Light status in real time
+- **Loan Sandbox** — plug in a hypothetical loan and see its ECL, IFRS 9 stage and risk flag in real time
 - **Portfolio** — segment-level breakdowns
 - **Model Performance** — PD/LGD diagnostics, calibration curves
 - **Backtesting** — the four regulatory tests, visualised
