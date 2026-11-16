@@ -322,7 +322,12 @@ function compute(){
   var tlDot  = document.getElementById('tlDot');
   var tlLbl  = document.getElementById('tlLbl');
   var tlDesc = document.getElementById('tlDesc');
-  if(rel<1){
+  if(pdUsed===pd){   // Stage 2: the SICR test drives the flag
+    tlBox.className='tl amber';
+    tlDot.style.background='var(--amber)';tlLbl.style.color='var(--amber)';
+    tlLbl.textContent='SICR flagged - lifetime ECL';
+    tlDesc.textContent='PD is at least 2x the grade '+grade+' average ('+pct(SICR_MULTIPLIER*(gPD[grade]||.09))+')';
+  } else if(rel<1){
     tlBox.className='tl green';
     tlDot.style.background='var(--green)';tlLbl.style.color='var(--green)';
     tlLbl.textContent='Below-average risk';tlDesc.textContent='PD is below the portfolio average (21.9%)';
